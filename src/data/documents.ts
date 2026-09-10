@@ -1,0 +1,67 @@
+import type { Document } from "@/types/document";
+
+export const documents: Record<string, Document> = {
+    bio: {
+        id: "bio",
+        title: "bio",
+        lines: [
+            "/**",
+            " * About me",
+            " ",
+            " * I am a Computer and Control Systems Engineer",
+            " * passionate about building modern web applications",
+            " * and intelligent autonomous systems.",
+            " ",
+            " * My experience spans full-stack development, embedded",
+            " * systems, and robotics, allowing me to work across",
+            " * both software and hardware.",
+            " ",
+            " * I have built responsive web applications using React,",
+            " * JavaScript, TypeScript, and modern web technologies,",
+            " * as well as RESTful APIs and backend services.",
+            " ",
+            " * I also have hands-on experience with microcontrollers,",
+            " * ROS2, computer vision, and autonomous vehicles.",
+            " ",
+            " * I enjoy solving complex problems, learning new",
+            " * technologies, and writing clean, maintainable code.",
+            " */",
+        ],
+    },
+    experiences: {
+        id: "experiences",
+        title: "experiences",
+        lines: [
+            "/**",
+            " * Experience",
+            " ",
+            " * Add your work history here — company, role,",
+            " * dates, and a couple of lines on impact.",
+            " */",
+        ],
+    },
+    "edu-uol": {
+        id: "edu-uol",
+        title: "University of MAnsoura",
+        lines: [
+            "/**",
+            " * University of MAnsoura",
+            " ",
+            " * Add details: years attended, honors,",
+            " * relevant coursework, GPA if relevant.",
+            " */",
+        ],
+    },
+    "edu-degree": {
+        id: "edu-degree",
+        title: "M.Sc in Computer Engineering",
+        lines: [
+            "/**",
+            " * M.Sc in Computer Engineering",
+            " ",
+            " * Add details: focus areas, notable",
+            " * projects, thesis, or capstone work.",
+            " */",
+        ],
+    },
+};
