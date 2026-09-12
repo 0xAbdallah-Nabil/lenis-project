@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { ChevronDown, ChevronRight, FileCode2 } from "lucide-react";
+import { FaGithub, FaLinkedin, FaFacebook } from "react-icons/fa";
+
 
 interface FileExplorerProps {
     onOpenFile: (id: string) => void;
@@ -65,7 +67,7 @@ export default function FileExplorer({ onOpenFile, activeFileId }: FileExplorerP
                                 className={fileClasses("edu-uol")}
                             >
                                 <FileCode2 size={14} className="text-orange-400" />
-                                University of Mansoura
+                                B.Sc in Computer Engineering
                             </button>
                             <button
                                 onClick={() => onOpenFile("edu-degree")}
@@ -92,7 +94,15 @@ export default function FileExplorer({ onOpenFile, activeFileId }: FileExplorerP
                     abdallahnabil2003@gmail.com
                 </a>
                 <div className="flex items-center gap-2 px-3 py-1.5 text-slate-400">
-                    Abdallah Nabil
+                    <a className="text-slate-400 hover:text-slate-200 hover:scale-120" href="https://github.com/0xAbdallah-Nabil" target="_blank" rel="noopener noreferrer">
+                        <FaGithub size={18} />
+                    </a>
+                    <a className="text-slate-400 hover:text-slate-200 hover:scale-120" href="https://www.linkedin.com/in/0xabdallah-nabil/" target="_blank" rel="noopener noreferrer">
+                        <FaLinkedin size={18} />
+                    </a>
+                    <a className="text-slate-400 hover:text-slate-200 hover:scale-120" href="https://www.facebook.com/abdallah.nabil.9421/" target="_blank" rel="noopener noreferrer">
+                        <FaFacebook size={18} />
+                    </a>
                 </div>
             </div>
         </aside >

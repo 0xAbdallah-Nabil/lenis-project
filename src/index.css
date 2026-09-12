@@ -1,2 +1,16 @@
 @import "tailwindcss";
 
+@keyframes throb {
+    0%,
+    100% {
+        opacity: 0.6;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+.animate-throb {
+    animation: throb 3s ease-in-out infinite;
+}

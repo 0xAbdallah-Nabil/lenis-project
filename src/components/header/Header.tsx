@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-
 const navLinks = [
     { label: "_hello", href: "#hello" },
     { label: "_about-me", href: "#about" },
     { label: "_projects", href: "#projects" },
+    { label: "_Contact", href: "#contact" },
 ];
 
 export default function Header() {
@@ -18,7 +18,7 @@ export default function Header() {
 
     return (
         <header className="w-full bg-[#0a1628] font-mono text-sm ">
-            <div className="flex items-center justify-between border-b border-gray-400 md:border-b-0">
+            <div className=" flex items-center justify-center border-b border-gray-400 md:border-b-0">
                 <nav className="hidden md:flex h-12 justify-center items-center ">
                     {navLinks.map((link) => (
                         <a
@@ -37,12 +37,7 @@ export default function Header() {
 
                 <div className="hidden md:block " />
 
-                <a
-                    href="mailto:abdallahnabil2003@gmail.com"
-                    className="hidden md:flex px-6 h-12 items-center  text-gray-400 hover:text-gray-200"
-                >
-                    _Contact
-                </a>
+
 
                 <button
                     type="button"
@@ -70,13 +65,6 @@ export default function Header() {
                             {link.label}
                         </a>
                     ))}
-
-                    <a
-                        href="mailto:abdallahnabil2003@gmail.com"
-                        className="px-6 h-12 flex items-center justify-center text-gray-400 hover:text-gray-200"
-                    >
-                        _Contact
-                    </a>
                 </nav>
             )}
         </header>
