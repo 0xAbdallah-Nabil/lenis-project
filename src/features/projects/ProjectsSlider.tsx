@@ -1,134 +1,189 @@
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { projects } from "@/data/projects";
 import type { Project } from "@/types/project";
 
-gsap.registerPlugin(ScrollTrigger);
+// Clone the last item to the front and the first item to the back.
+// This lets us animate straight past the "real" edges and then
+// snap instantly (no animation) back into the matching real slide,
+// creating the illusion of an infinite loop.
+const slides: Project[] = [
+    projects[ projects.length - 1 ],
+    ...projects,
+    projects[ 0 ],
+];
 
 export default function ProjectsSlider() {
-    const sectionRef = useRef<HTMLElement>(null);
     const trackRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const isAnimatingRef = useRef(false);
 
-    useLayoutEffect(() => {
-        const section = sectionRef.current;
+    // index into `slides`; starts at 1 = first real project
+    const [ index, setIndex ] = useState(1);
+
+    const goTo = (nextIndex: number) => {
+        if (isAnimatingRef.current) return;
         const track = trackRef.current;
-        if (!section || !track) return;
+        const container = containerRef.current;
+        if (!track || !container) return;
 
-        const mm = gsap.matchMedia();
+        isAnimatingRef.current = true;
+        const slideWidth = container.offsetWidth;
 
-        // Pinned horizontal scroll only on md+ screens.
-        // Below that, the track falls back to native horizontal scroll-snap (see className below).
-        mm.add("(min-width: 768px)", () => {
-            const getDistance = () => track.scrollWidth - section.offsetWidth;
+        gsap.to(track, {
+            x: -nextIndex * slideWidth,
+            duration: 0.8,
+            ease: "power3.inOut",
+            onComplete: () => {
+                isAnimatingRef.current = false;
 
-            const tween = gsap.to(track, {
-                x: () => -getDistance(),
-                ease: "none",
-                scrollTrigger: {
-                    trigger: section,
-                    start: "top top",
-                    end: () => `+=${getDistance()}`,
-                    scrub: 1,
-                    pin: true,
-                    anticipatePin: 1,
-                    invalidateOnRefresh: true,
-                },
-            });
-
-            return () => {
-                tween.scrollTrigger?.kill();
-                tween.kill();
-            };
+                // Landed on a clone — snap instantly to the matching real slide
+                if (nextIndex === slides.length - 1) {
+                    setIndex(1);
+                    gsap.set(track, { x: -1 * slideWidth });
+                } else if (nextIndex === 0) {
+                    setIndex(slides.length - 2);
+                    gsap.set(track, { x: -(slides.length - 2) * slideWidth });
+                } else {
+                    setIndex(nextIndex);
+                }
+            },
         });
+    };
 
-        return () => mm.revert();
+    const handleNext = () => goTo(index + 1);
+    const handlePrev = () => goTo(index - 1);
+
+    // Keep the track aligned to the current slide on resize
+    useLayoutEffect(() => {
+        const track = trackRef.current;
+        const container = containerRef.current;
+        if (!track || !container) return;
+
+        gsap.set(track, { x: -index * container.offsetWidth });
+
+        const onResize = () => {
+            gsap.set(track, { x: -index * container.offsetWidth });
+        };
+        window.addEventListener("resize", onResize);
+        return () => window.removeEventListener("resize", onResize);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    // Real (non-clone) slide number for the dots/counter, 0-based
+    const realIndex = (index - 1 + projects.length) % projects.length;
 
     return (
         <section
             id="projects"
-            ref={sectionRef}
-            className="relative w-screen overflow-hidden bg-[#0a1628] font-mono"
+            ref={containerRef}
+            className="relative w-screen h-screen overflow-hidden bg-[#0a1628] font-mono border-t "
         >
-            <div className="pt-16 md:pt-10 px-6 md:absolute md:top-10 md:left-12 md:pt-0 z-10">
+            <div className="absolute top-10 left-6 md:left-12 z-10">
                 <p className="text-slate-500 text-sm">// featured work</p>
                 <h2 className="text-3xl md:text-5xl font-semibold text-white">_projects</h2>
             </div>
 
-            <div
-                ref={trackRef}
-                className="flex md:h-screen h-auto items-stretch md:items-center gap-6 md:gap-8
-                           px-6 md:pl-12 md:pr-[10vw] pb-6 md:pb-0 pt-8 md:pt-0
-                           overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none
-                           will-change-transform"
-            >
-                {projects.map((project, i) => (
-                    <ProjectCard key={project.id} project={project} index={i} />
+            <div ref={trackRef} className="flex h-full w-full will-change-transform">
+                {slides.map((project, i) => (
+                    <div key={`${project.id}-${i}`} className="w-screen h-full shrink-0">
+                        <ProjectCard project={project} />
+                    </div>
                 ))}
+            </div>
+
+            {/* controls */}
+            <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-6 z-10">
+                <button
+                    type="button"
+                    onClick={handlePrev}
+                    aria-label="Previous project"
+                    className="h-12 w-12 rounded-full border border-slate-700 bg-slate-900/60
+                               flex items-center justify-center text-slate-300
+                               hover:border-orange-400 hover:text-orange-400 transition-colors"
+                >
+                    <ChevronLeft size={20} />
+                </button>
+
+                <div className="flex gap-2">
+                    {projects.map((_, i) => (
+                        <span
+                            key={i}
+                            className={`h-1.5 rounded-full transition-all ${i === realIndex ? "w-6 bg-orange-400" : "w-1.5 bg-slate-700"
+                                }`}
+                        />
+                    ))}
+                </div>
+
+                <button
+                    type="button"
+                    onClick={handleNext}
+                    aria-label="Next project"
+                    className="h-12 w-12 rounded-full border border-slate-700 bg-slate-900/60
+                               flex items-center justify-center text-slate-300
+                               hover:border-orange-400 hover:text-orange-400 transition-colors"
+                >
+                    <ChevronRight size={20} />
+                </button>
             </div>
         </section>
     );
 }
 
-function ProjectCard({ project, index }: { project: Project; index: number }) {
+function ProjectCard({ project }: { project: Project }) {
     return (
-        <article
-            className="group relative shrink-0 snap-center
-                       w-[85vw] sm:w-[60vw] md:w-[38vw] lg:w-[32vw]
-                       h-[70vh] md:h-[65vh]
-                       rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/40"
-        >
-            <span className="absolute top-4 left-4 z-10 text-6xl font-bold text-white/10 select-none">
-                {String(index + 1).padStart(2, "0")}
-            </span>
-
-            <img
-                src={project.image}
-                alt={project.title}
-                className="absolute inset-0 w-full h-full object-cover opacity-40
-                           group-hover:opacity-60 group-hover:scale-105 transition-all duration-500"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0a1628] via-[#0a1628]/70 to-transparent" />
-
-            <div className="relative z-10 h-full flex flex-col justify-end p-6">
-                <div className="flex flex-wrap gap-2 mb-3">
-                    {project.tags.map((tag) => (
-                        <span
-                            key={tag}
-                            className="text-xs px-2 py-1 rounded border border-slate-700 text-indigo-300"
-                        >
-                            {tag}
-                        </span>
-                    ))}
+        <div className="relative w-full h-full flex items-center justify-center px-6 md:px-24">
+            <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+                <div className="order-2 md:order-1">
+                    <div className="flex flex-wrap gap-2 mb-4">
+                        {project.tags.map((tag) => (
+                            <span
+                                key={tag}
+                                className="text-xs px-2 py-1 rounded border border-slate-700 text-indigo-300"
+                            >
+                                {tag}
+                            </span>
+                        ))}
+                    </div>
+                    <h3 className="text-3xl md:text-4xl font-semibold text-white mb-4">
+                        {project.title}
+                    </h3>
+                    <p className="text-slate-400 text-base mb-6 max-w-md">
+                        {project.description}
+                    </p>
+                    <div className="flex gap-5 text-sm">
+                        {project.link && (
+                            <a
+                                href={project.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-orange-400 hover:text-orange-300"
+                            >
+                                live →
+                            </a>
+                        )}
+                        {project.github && (
+                            <a
+                                href={project.github}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-slate-400 hover:text-slate-200"
+                            >
+                                code →
+                            </a>
+                        )}
+                    </div>
                 </div>
-                <h3 className="text-xl md:text-2xl font-semibold text-white mb-2">
-                    {project.title}
-                </h3>
-                <p className="text-slate-400 text-sm mb-4">{project.description}</p>
-                <div className="flex gap-4 text-sm">
-                    {project.link && (
-                        <a
-                            href={project.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-orange-400 hover:text-orange-300"
-                        >
-                            live →
-                        </a>
-                    )}
-                    {project.github && (
-                        <a
-                            href={project.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-slate-400 hover:text-slate-200"
-                        >
-                            code →
-                        </a>
-                    )}
+
+                <div className="order-1 md:order-2 rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/40 aspect-video">
+                    <img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-full object-cover"
+                    />
                 </div>
             </div >
-        </article >
+        </div >
     );
 }
