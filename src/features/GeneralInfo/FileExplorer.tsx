@@ -24,7 +24,7 @@ export default function FileExplorer({ onOpenFile, activeFileId }: FileExplorerP
         }`;
 
     return (
-        <aside className="w-full md:w-64 shrink-0 bg-[#0a1628] border-r border-slate-800 font-mono text-sm text-slate-300">
+        <aside className="w-full md:w-64 shrink-0 self-start md:self-stretch h-fit md:h-full bg-[#0a1628] border-r border-slate-800 font-mono text-sm text-slate-300">
             {/* root folder */}
             <button
                 onClick={() => toggleFolder("root")}
@@ -61,10 +61,11 @@ export default function FileExplorer({ onOpenFile, activeFileId }: FileExplorerP
                     </button>
 
                     {openFolders.education && (
-                        <div className="pl-5">
+                        <div className="ml-3">
                             <button
                                 onClick={() => onOpenFile("edu-uol")}
                                 className={fileClasses("edu-uol")}
+                                style={{ fontSize: "12px" }}
                             >
                                 <FileCode2 size={14} className="text-orange-400" />
                                 B.Sc in Computer Engineering
@@ -72,6 +73,7 @@ export default function FileExplorer({ onOpenFile, activeFileId }: FileExplorerP
                             <button
                                 onClick={() => onOpenFile("edu-degree")}
                                 className={fileClasses("edu-degree")}
+                                style={{ fontSize: "12px" }}
                             >
                                 <FileCode2 size={14} className="text-orange-400" />
                                 M.Sc in Computer Engineering
@@ -82,10 +84,10 @@ export default function FileExplorer({ onOpenFile, activeFileId }: FileExplorerP
             )}
 
             {/* contacts */}
-            <div className="mt-4 px-3 py-2 text-slate-200 font-medium border-t border-slate-800">
+            <div className=" md:block hidden mt-4 px-3 py-2 text-slate-200 font-medium border-t border-slate-800">
                 contacts
             </div>
-            <div className="pl-4 pb-4">
+            <div className="pl-4 pb-4 md:flex md:flex-col md:items-start md:gap-2 hidden">
                 <a
                     href="mailto:abdallahnabil2003@gmail.com"
                     className="flex items-center justify-start  px-3 py-1.5 text-slate-400 hover:text-slate-200"

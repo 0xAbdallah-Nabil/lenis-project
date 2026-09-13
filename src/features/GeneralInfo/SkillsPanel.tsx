@@ -1,6 +1,9 @@
 import { skillCategories } from "@/data/skills";
 
+
+
 export default function SkillsPanel() {
+
 
 
     return (
@@ -24,7 +27,10 @@ export default function SkillsPanel() {
                             </button>
                         </div>
 
-                        <div className="border border-slate-800 rounded-md p-4 grid grid-cols-2 gap-y-3 gap-x-4">
+                        <div className="border border-slate-800 rounded-md p-4 grid grid-cols-2 gap-y-3 gap-x-4"
+                            data-aos="fade-up"
+                            data-aos-delay="100"
+                        >
                             {category.skills.map((skill) => (
                                 <div
                                     key={skill.name}

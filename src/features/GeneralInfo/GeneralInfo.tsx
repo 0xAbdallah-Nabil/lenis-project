@@ -1,13 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FileExplorer from "./FileExplorer";
 import BioEditor from "./BioEditor";
 import SkillsPanel from "./SkillsPanel";
 import { documents } from "@/data/documents";
-
+// AOS does not ship TypeScript declarations.
+// @ts-expect-error: the package is JavaScript-only and has no available declaration file.
+import AOS from "aos";
+import "aos/dist/aos.css";
 export default function GeneralInfo() {
     const [ openTabIds, setOpenTabIds ] = useState<string[]>([ "bio" ]);
     const [ activeId, setActiveId ] = useState<string | null>("bio");
-
+    useEffect(() => {
+        AOS.init({ duration: 1000 });
+    }, []);
     const handleOpenFile = (id: string) => {
         setOpenTabIds((prev) => (prev.includes(id) ? prev : [ ...prev, id ]));
         setActiveId(id);
@@ -36,8 +41,8 @@ export default function GeneralInfo() {
             <div className="flex flex-col md:flex-row">
 
                 {/* Left + Center */}
-                <div className="md:flex-1 md:sticky md:top-0 md:h-screen">
-                    <div className="flex h-full">
+                <div className="md:flex-1 md:sticky md:top-0 border-b border-slate-800 py-5 md:border-b-0 md:border-r md:h-screen">
+                    <div className="flex h-fit md:h-screen flex-col md:flex-row">
                         <FileExplorer onOpenFile={handleOpenFile} activeFileId={activeId} />
                         <BioEditor
                             openDocs={openDocs}

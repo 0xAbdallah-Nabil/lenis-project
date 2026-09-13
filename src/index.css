@@ -3,7 +3,7 @@
 @keyframes throb {
     0%,
     100% {
-        opacity: 0.6;
+        opacity: 0.4;
     }
 
     50% {

@@ -11,7 +11,7 @@ export default function Hero() {
         >
             {/* dot-grid background decoration */}
             <div
-                className="absolute inset-0 pointer-events-none"
+                className="absolute inset-0 pointer-events-none animate-throb"
                 style={{
                     backgroundImage:
                         "radial-gradient(rgba(148,163,184,0.25) 1px, transparent 1px)",
