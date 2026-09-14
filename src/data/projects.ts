@@ -1,5 +1,4 @@
 import type { Project } from "@/types/project";
-import hero from "@/assets/hero.png";
 import geanlaern from "@/assets/images/genlearn.png";
 import learnova from "@/assets/images/learnova.png";
 import famory from "@/assets/images/famory.png";
@@ -28,12 +27,5 @@ export const projects: Project[] = [
         image: learnova,
         tags: [ "ROS2", "Python", "SLAM" ],
         github: "https://github.com/0xAbdallah-Nabil",
-    },
-    {
-        id: "p4",
-        title: "Project Four",
-        description: "Short one/two line description of what it does and the impact it had.",
-        image: hero,
-        tags: [ "ESP32", "C++", "RTOS" ],
-    },
+    }
 ];

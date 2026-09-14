@@ -24,7 +24,7 @@ export default function FileExplorer({ onOpenFile, activeFileId }: FileExplorerP
         }`;
 
     return (
-        <aside className="w-full md:w-64 shrink-0 self-start md:self-stretch h-fit md:h-full bg-[#0a1628] border-r border-slate-800 font-mono text-sm text-slate-300">
+        <aside className="w-full md:w-64 shrink-0 self-start md:self-stretch h-fit md:h-full bg-[#0a1628d6] border-r border-slate-800 font-mono text-sm text-slate-300">
             {/* root folder */}
             <button
                 onClick={() => toggleFolder("root")}

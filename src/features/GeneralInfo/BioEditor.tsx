@@ -13,14 +13,14 @@ export default function BioEditor({ openDocs, activeId, onSelectTab, onCloseTab 
 
     if (!activeDoc) {
         return (
-            <div className="flex-1 min-w-0 bg-[#0a1628] font-mono text-sm flex items-center justify-center text-slate-600">
+            <div className="flex-1 min-w-0  font-mono text-sm flex items-center justify-center text-slate-600">
                 // select a file to view
             </div>
         );
     }
 
     return (
-        <div className="flex-1 min-w-0 bg-[#0a1628] font-mono text-sm">
+        <div className="flex-1 min-w-0  font-mono text-sm">
             {/* tab bar */}
             <div className="flex items-center border-b border-slate-800 overflow-x-auto">
                 {openDocs.map((doc) => (
@@ -28,8 +28,8 @@ export default function BioEditor({ openDocs, activeId, onSelectTab, onCloseTab 
                         key={doc.id}
                         onClick={() => onSelectTab(doc.id)}
                         className={`flex items-center gap-2 px-4 py-2 border-t-2 cursor-pointer shrink-0 ${doc.id === activeId
-                                ? "border-t-orange-400 bg-slate-800/30 text-slate-200"
-                                : "border-t-transparent text-slate-500 hover:text-slate-300"
+                            ? "border-t-orange-400 bg-slate-800/30 text-slate-200"
+                            : "border-t-transparent text-slate-500 hover:text-slate-300"
                             }`}
                     >
                         {doc.title}

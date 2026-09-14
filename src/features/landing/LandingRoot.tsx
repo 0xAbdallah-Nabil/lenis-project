@@ -1,6 +1,6 @@
 import photo1 from "@/assets/images/photo1.jpeg";
 import { TypeAnimation } from "react-type-animation";
-
+import ShapeGrid from "@/components/ShapeGrid";
 export default function Hero() {
 
 
@@ -10,14 +10,17 @@ export default function Hero() {
             className="relative overflow-hidden bg-[#0a1628] font-mono text-slate-200 py-16 sm:py-20 md:py-0 md:min-h-[720px] flex items-center"
         >
             {/* dot-grid background decoration */}
-            <div
-                className="absolute inset-0 pointer-events-none animate-throb"
-                style={{
-                    backgroundImage:
-                        "radial-gradient(rgba(148,163,184,0.25) 1px, transparent 1px)",
-                    backgroundSize: "28px 28px",
-                }}
-            />
+            <div className="absolute inset-0 z-0">
+                <ShapeGrid
+                    speed={0.2}
+                    squareSize={40}
+                    direction="diagonal"
+                    borderColor="#334155"
+                    hoverFillColor="#222"
+                    shape="hexagon"
+                    hoverTrailAmount={5}
+                />
+            </div>
 
             <div className="relative max-w-7xl mx-auto w-full px-6 grid grid-cols-1 md:grid-cols-2 items-center gap-10 md:gap-12">
                 {/* PHOTO — single block, reordered per breakpoint instead of duplicated */}

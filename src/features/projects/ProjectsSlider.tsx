@@ -2,6 +2,7 @@ import { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { projects } from "@/data/projects";
+import GradientWaves from '@/components/GradientWaves';
 import type { Project } from "@/types/project";
 
 // Clone the last item to the front and the first item to the back.
@@ -80,12 +81,36 @@ export default function ProjectsSlider() {
             ref={containerRef}
             className="relative w-screen h-screen overflow-hidden bg-[#0a1628] font-mono border-t "
         >
+            <div className="absolute inset-0 z-0 bg-black/40">
+                <GradientWaves
+                    horizonColor="#5227FF"
+                    waveColor="#FF9FFC"
+                    crestColor="#FFFFFF"
+                    speed={0.4}
+                    amplitude={2.5}
+                    waveScale={0.6}
+                    waveRatio={0.9}
+                    swell={35}
+                    turbulence={20}
+                    tilt={1.11}
+                    zoom={1}
+                    height={5.5}
+                    fogDepth={15}
+                    detail="medium"
+                    brightness={1}
+                    opacity={1}
+                    mouseInteraction
+                    parallaxStrength={0.5}
+                    grain
+                    grainIntensity={0.05}
+                />
+            </div>
             <div className="absolute top-10 left-6 md:left-12 z-10">
                 <p className="text-slate-500 text-sm">// featured work</p>
                 <h2 className="text-3xl md:text-5xl font-semibold text-white">_projects</h2>
             </div>
 
-            <div ref={trackRef} className="flex h-full w-full will-change-transform">
+            <div ref={trackRef} className="flex h-full w-full will-change-transform z-10">
                 {slides.map((project, i) => (
                     <div key={`${project.id}-${i}`} className="w-screen h-full shrink-0">
                         <ProjectCard project={project} />
