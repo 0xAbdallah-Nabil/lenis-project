@@ -2,9 +2,9 @@ import { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { projects } from "@/data/projects";
-import GradientWaves from '@/components/GradientWaves';
+//import GradientWaves from '@/components/GradientWaves';
 import type { Project } from "@/types/project";
-
+import DotGrid from '@/components/DotGrid';
 // Clone the last item to the front and the first item to the back.
 // This lets us animate straight past the "real" edges and then
 // snap instantly (no animation) back into the matching real slide,
@@ -81,28 +81,17 @@ export default function ProjectsSlider() {
             ref={containerRef}
             className="relative w-screen h-screen overflow-hidden bg-[#0a1628] font-mono border-t "
         >
-            <div className="absolute inset-0 z-0 bg-black/40">
-                <GradientWaves
-                    horizonColor="#5227FF"
-                    waveColor="#FF9FFC"
-                    crestColor="#FFFFFF"
-                    speed={0.4}
-                    amplitude={2.5}
-                    waveScale={0.6}
-                    waveRatio={0.9}
-                    swell={35}
-                    turbulence={20}
-                    tilt={1.11}
-                    zoom={1}
-                    height={5.5}
-                    fogDepth={15}
-                    detail="medium"
-                    brightness={1}
-                    opacity={1}
-                    mouseInteraction
-                    parallaxStrength={0.5}
-                    grain
-                    grainIntensity={0.05}
+            <div className="absolute inset-0 z-0 pointer-events-none">
+                <DotGrid
+                    dotSize={2}
+                    gap={25}
+                    baseColor="#334155"
+                    activeColor="#a392ea"
+                    proximity={90}
+                    shockRadius={140}
+                    shockStrength={5}
+                    resistance={500}
+                    returnDuration={0.6}
                 />
             </div>
             <div className="absolute top-10 left-6 md:left-12 z-10">

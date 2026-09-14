@@ -4,7 +4,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Send, CheckCircle2, XCircle } from "lucide-react";
 import type { ContactFormData, ContactStatus } from "@/types/contacts";
 import contactArt from "@/assets/svgs/contact us.svg";
-import MagicRings from '@/components/MagicRings';
+//import MagicRings from '@/components/MagicRings';
+import Galaxy from '@/components/Galaxy';
 gsap.registerPlugin(ScrollTrigger);
 
 // Replace with your own Formspree form id (or EmailJS/backend endpoint).
@@ -102,28 +103,19 @@ export default function ContactForm() {
             className="w-full bg-[#0a1628] border-t border-slate-800 font-mono py-20 px-6 relative isolate"
         >
             <div className="absolute inset-0 z-0 pointer-events-none">
-                <MagicRings
-                    color="#FF9FFC"
-                    colorTwo="#030440"
-                    ringCount={6}
-                    speed={0.2}
-                    attenuation={10}
-                    lineThickness={2}
-                    baseRadius={0.35}
-                    radiusStep={0.1}
-                    scaleRate={0.1}
-                    opacity={0.5}
-                    blur={0}
-                    noiseAmount={0.1}
-                    rotation={0}
-                    ringGap={1.5}
-                    fadeIn={0.7}
-                    fadeOut={0.5}
-                    followMouse={false}
-                    mouseInfluence={0.2}
-                    hoverScale={1.2}
-                    parallax={0.05}
-                    clickBurst={false}
+                <Galaxy
+                    mouseRepulsion
+                    mouseInteraction
+                    density={.8}
+                    glowIntensity={0.2}
+                    saturation={0}
+                    hueShift={0}
+                    twinkleIntensity={0.3}
+                    rotationSpeed={0.0}
+                    repulsionStrength={0}
+                    autoCenterRepulsion={0}
+                    starSpeed={0.2}
+                    speed={.5}
                 />
             </div>
             <div className="relative z-20 max-w-4xl mx-auto">

@@ -1,6 +1,7 @@
-import photo1 from "@/assets/images/photo1.jpeg";
+//import photo1 from "@/assets/images/photo1.jpeg";
 import { TypeAnimation } from "react-type-animation";
 import ShapeGrid from "@/components/ShapeGrid";
+import photo1 from "@/assets/images/image2.jpeg";
 export default function Hero() {
 
 
