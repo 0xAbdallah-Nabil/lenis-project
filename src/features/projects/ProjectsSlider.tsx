@@ -83,14 +83,14 @@ export default function ProjectsSlider() {
         <section
             id="projects"
             ref={containerRef}
-            className="relative w-screen h-screen overflow-hidden bg-white dark:bg-[#0a1628] font-mono border-t border-slate-200 dark:border-slate-800 transition-colors"
+            className="relative w-screen h-screen overflow-hidden bg-[#eaddc0] dark:bg-[#0a1628] font-mono border-t border-slate-200 dark:border-slate-800 transition-colors"
         >
             <div className="absolute inset-0 z-0 pointer-events-none">
                 <DotGrid
                     dotSize={2}
                     gap={25}
-                    baseColor={isDark ? "#334155" : "#cbd5e1"}
-                    activeColor={isDark ? "#a392ea" : "#7c6ce0"}
+                    baseColor={isDark ? "#334155" : "#7c6ce0"}
+                    activeColor={isDark ? "#a392ea" : "#7c0000"}
                     proximity={90}
                     shockRadius={140}
                     shockStrength={5}

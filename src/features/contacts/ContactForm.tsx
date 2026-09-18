@@ -104,7 +104,7 @@ export default function ContactForm() {
         <section
             id="contact"
             ref={sectionRef}
-            className="w-full bg-white dark:bg-[#0a1628] border-t border-slate-200 dark:border-slate-800 font-mono py-20 px-6 relative isolate transition-colors"
+            className="w-full bg-[#eaddc0] dark:bg-[#0a1628] border-t border-slate-200 dark:border-slate-800 font-mono py-20 px-6 relative isolate transition-colors"
         >
             <div className="absolute inset-0 z-0 pointer-events-none">
                 <Galaxy

@@ -13,7 +13,7 @@ export default function Hero() {
     return (
         <section
             id="hello"
-            className="relative overflow-hidden bg-white dark:bg-[#0a1628] text-slate-700 dark:text-slate-200 font-mono py-16 sm:py-20 md:py-0 md:min-h-[720px] flex items-center transition-colors"
+            className="relative overflow-hidden bg-[#eaddc0] dark:bg-[#0a1628] text-slate-700 dark:text-slate-200 font-mono py-16 sm:py-20 md:py-0 md:min-h-[720px] flex items-center transition-colors"
         >
             {/* dot-grid background decoration */}
             <div className="absolute inset-0 z-0">
