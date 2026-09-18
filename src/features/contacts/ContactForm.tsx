@@ -2,7 +2,9 @@ import { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Send, CheckCircle2, XCircle } from "lucide-react";
+import { useSelector } from "react-redux";
 import type { ContactFormData, ContactStatus } from "@/types/contacts";
+import type { RootState } from "@/store";
 import contactArt from "@/assets/svgs/contact us.svg";
 //import MagicRings from '@/components/MagicRings';
 import Galaxy from '@/components/Galaxy';
@@ -18,6 +20,8 @@ export default function ContactForm() {
     const fieldsRef = useRef<HTMLDivElement[]>([]);
     // eslint-disable-next-line react-hooks/refs
     fieldsRef.current = [];
+    const mode = useSelector((state: RootState) => state.theme.mode);
+    const isDark = mode === "dark";
 
     const [ data, setData ] = useState<ContactFormData>(initialData);
     const [ status, setStatus ] = useState<ContactStatus>("idle");
@@ -100,7 +104,7 @@ export default function ContactForm() {
         <section
             id="contact"
             ref={sectionRef}
-            className="w-full bg-[#0a1628] border-t border-slate-800 font-mono py-20 px-6 relative isolate"
+            className="w-full bg-white dark:bg-[#0a1628] border-t border-slate-200 dark:border-slate-800 font-mono py-20 px-6 relative isolate transition-colors"
         >
             <div className="absolute inset-0 z-0 pointer-events-none">
                 <Galaxy
@@ -110,36 +114,37 @@ export default function ContactForm() {
                     glowIntensity={0.2}
                     saturation={0}
                     hueShift={0}
-                    twinkleIntensity={0.3}
+                    twinkleIntensity={0.1}
                     rotationSpeed={0.0}
                     repulsionStrength={0}
                     autoCenterRepulsion={0}
                     starSpeed={0.2}
                     speed={.5}
+                    lightMode={!isDark}
                 />
             </div>
             <div className="relative z-20 max-w-4xl mx-auto">
                 <p className="text-slate-500 text-sm mb-2 relative z-10">// let's talk</p>
-                <h2 className="text-3xl md:text-4xl font-semibold text-white mb-10 relative z-10">
+                <h2 className="text-3xl md:text-4xl font-semibold text-slate-900 dark:text-white mb-10 relative z-10">
                     _contact
                 </h2>
 
                 <form
                     onSubmit={handleSubmit}
-                    className="rounded-xl border border-slate-800 bg-slate-900/95 backdrop-blur-sm overflow-hidden"
+                    className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm overflow-hidden"
                 >
                     {/* terminal-style header bar */}
-                    <div className="flex items-center gap-2 px-4 py-3 border-b border-slate-800 bg-slate-900/50">
+                    <div className="flex items-center gap-2 px-4 py-3 border-b border-slate-200 dark:border-slate-800 bg-slate-100/70 dark:bg-slate-900/50">
                         <span className="w-3 h-3 rounded-full bg-red-500/70" />
                         <span className="w-3 h-3 rounded-full bg-yellow-500/70" />
                         <span className="w-3 h-3 rounded-full bg-green-500/70" />
                         <span className="ml-3 text-xs text-slate-500">contact.sh</span>
                     </div>
-                    <div className="flex block md:flex-row">
+                    <div className="flex md:flex-row">
 
                         <div className="p-6 space-y-5 md:w-2/3 w-full">
                             <div ref={addFieldRef}>
-                                <label htmlFor="name" className="block text-sm text-indigo-400 mb-1">
+                                <label htmlFor="name" className="block text-sm text-indigo-500 dark:text-indigo-400 mb-1">
                                     <span className="text-slate-500">$</span> name
                                 </label>
                                 <input
@@ -148,15 +153,15 @@ export default function ContactForm() {
                                     value={data.name}
                                     onChange={handleChange}
                                     placeholder="Your name"
-                                    className="w-full bg-slate-950/60 border border-slate-800 rounded-md px-3 py-2
-                                           text-slate-200 text-sm placeholder:text-slate-600
+                                    className="w-full bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-md px-3 py-2
+                                           text-slate-800 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600
                                            focus:outline-none focus:border-orange-400/60 focus:ring-1 focus:ring-orange-400/30
                                            transition-colors"
                                 />
                             </div>
 
                             <div ref={addFieldRef}>
-                                <label htmlFor="email" className="block text-sm text-indigo-400 mb-1">
+                                <label htmlFor="email" className="block text-sm text-indigo-500 dark:text-indigo-400 mb-1">
                                     <span className="text-slate-500">$</span> email
                                 </label>
                                 <input
@@ -166,15 +171,15 @@ export default function ContactForm() {
                                     value={data.email}
                                     onChange={handleChange}
                                     placeholder="you@example.com"
-                                    className="w-full bg-slate-950/60 border border-slate-800 rounded-md px-3 py-2
-                                           text-slate-200 text-sm placeholder:text-slate-600
+                                    className="w-full bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-md px-3 py-2
+                                           text-slate-800 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600
                                            focus:outline-none focus:border-orange-400/60 focus:ring-1 focus:ring-orange-400/30
                                            transition-colors"
                                 />
                             </div>
 
                             <div ref={addFieldRef}>
-                                <label htmlFor="message" className="block text-sm text-indigo-400 mb-1">
+                                <label htmlFor="message" className="block text-sm text-indigo-500 dark:text-indigo-400 mb-1">
                                     <span className="text-slate-500">$</span> message
                                 </label>
                                 <textarea
@@ -184,8 +189,8 @@ export default function ContactForm() {
                                     onChange={handleChange}
                                     rows={5}
                                     placeholder="Tell me about your project..."
-                                    className="w-full bg-slate-950/60 border border-slate-800 rounded-md px-3 py-2
-                                           text-slate-200 text-sm placeholder:text-slate-600 resize-none
+                                    className="w-full bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-md px-3 py-2
+                                           text-slate-800 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 resize-none
                                            focus:outline-none focus:border-orange-400/60 focus:ring-1 focus:ring-orange-400/30
                                            transition-colors"
                                 />
@@ -205,18 +210,18 @@ export default function ContactForm() {
                                 </button>
 
                                 {status === "success" && (
-                                    <span className="flex items-center gap-1.5 text-emerald-400 text-sm">
+                                    <span className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 text-sm">
                                         <CheckCircle2 size={16} /> sent!
                                     </span>
                                 )}
                                 {status === "error" && errorMsg && (
-                                    <span className="flex items-center gap-1.5 text-red-400 text-sm">
+                                    <span className="flex items-center gap-1.5 text-red-600 dark:text-red-400 text-sm">
                                         <XCircle size={16} /> {errorMsg}
                                     </span>
                                 )}
                             </div>
                         </div>
-                        <div className="md:flex justify-center items-center bg-slate-950/40 hidden md:w-1/2 ">
+                        <div className="md:flex justify-center items-center bg-slate-100/60 dark:bg-slate-950/40 hidden md:w-1/2 ">
                             <img
                                 src={contactArt}
                                 alt="Contact illustration"

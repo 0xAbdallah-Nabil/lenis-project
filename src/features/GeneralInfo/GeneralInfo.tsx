@@ -49,18 +49,18 @@ export default function GeneralInfo() {
     return (
         <section
             id="about"
-            className="w-full bg-[#0a1628] border-t border-slate-800"
+            className="w-full bg-white dark:bg-[#0a1628] border-t border-slate-200 dark:border-slate-800 transition-colors"
         >
             <div className="flex flex-col md:flex-row relative">
                 {/* ShapeGrid Background */}
 
                 {/* Left + Center */}
-                <div className="relative md:flex-1 md:sticky md:top-0 border-b border-slate-800  md:border-b-0 md:border-r md:h-screen overflow-hidden">
+                <div className="relative md:flex-1 md:sticky md:top-0 border-b border-slate-200 dark:border-slate-800  md:border-b-0 md:border-r md:h-screen overflow-hidden">
                     <div
-                        className="absolute inset-0 pointer-events-none animate-throb"
+                        className="absolute inset-0 pointer-events-none animate-throb dark:opacity-100"
                         style={{
                             backgroundImage:
-                                "radial-gradient(rgba(148,163,184,0.25) 1px, transparent 1px)",
+                                "radial-gradient(rgba(100,116,139,0.35) 1px, transparent 1px)",
                             backgroundSize: "28px 28px",
                         }}
                     />

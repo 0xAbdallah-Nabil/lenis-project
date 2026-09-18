@@ -7,7 +7,7 @@ export default function SkillsPanel() {
 
 
     return (
-        <aside className="sticky top-0  w-full md:w-[420px] shrink-0 bg-[#0a1628] border-l border-slate-800 font-mono text-sm px-6 py-6 ">
+        <aside className="sticky top-0  w-full md:w-[420px] shrink-0 bg-white dark:bg-[#0a1628] border-l border-slate-200 dark:border-slate-800 font-mono text-sm px-6 py-6 transition-colors">
             <p className="text-slate-500 mb-6">
                 // Relevant Skills
             </p>
@@ -18,16 +18,16 @@ export default function SkillsPanel() {
                 {skillCategories.map((category) => (
                     <div key={category.id}>
                         <div className="flex items-center justify-between mb-2">
-                            <span className="text-indigo-400">
+                            <span className="text-indigo-500 dark:text-indigo-400">
                                 {category.label}
                             </span>
 
-                            <button className="text-slate-500 text-xs hover:text-slate-300">
+                            <button className="text-slate-500 text-xs hover:text-slate-700 dark:hover:text-slate-300">
                                 details
                             </button>
                         </div>
 
-                        <div className="border border-slate-800 rounded-md p-4 grid grid-cols-2 gap-y-3 gap-x-4"
+                        <div className="border border-slate-200 dark:border-slate-800 rounded-md p-4 grid grid-cols-2 gap-y-3 gap-x-4 bg-slate-50 dark:bg-transparent"
                             data-aos="fade-up"
                             data-aos-delay="100"
                         >

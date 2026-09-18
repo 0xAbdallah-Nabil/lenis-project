@@ -1,9 +1,11 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useSelector } from "react-redux";
 import { projects } from "@/data/projects";
 //import GradientWaves from '@/components/GradientWaves';
 import type { Project } from "@/types/project";
+import type { RootState } from "@/store";
 import DotGrid from '@/components/DotGrid';
 // Clone the last item to the front and the first item to the back.
 // This lets us animate straight past the "real" edges and then
@@ -19,6 +21,8 @@ export default function ProjectsSlider() {
     const trackRef = useRef<HTMLDivElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     const isAnimatingRef = useRef(false);
+    const mode = useSelector((state: RootState) => state.theme.mode);
+    const isDark = mode === "dark";
 
     // index into `slides`; starts at 1 = first real project
     const [ index, setIndex ] = useState(1);
@@ -79,14 +83,14 @@ export default function ProjectsSlider() {
         <section
             id="projects"
             ref={containerRef}
-            className="relative w-screen h-screen overflow-hidden bg-[#0a1628] font-mono border-t "
+            className="relative w-screen h-screen overflow-hidden bg-white dark:bg-[#0a1628] font-mono border-t border-slate-200 dark:border-slate-800 transition-colors"
         >
             <div className="absolute inset-0 z-0 pointer-events-none">
                 <DotGrid
                     dotSize={2}
                     gap={25}
-                    baseColor="#334155"
-                    activeColor="#a392ea"
+                    baseColor={isDark ? "#334155" : "#cbd5e1"}
+                    activeColor={isDark ? "#a392ea" : "#7c6ce0"}
                     proximity={90}
                     shockRadius={140}
                     shockStrength={5}
@@ -96,7 +100,7 @@ export default function ProjectsSlider() {
             </div>
             <div className="absolute top-10 left-6 md:left-12 z-10">
                 <p className="text-slate-500 text-sm">// featured work</p>
-                <h2 className="text-3xl md:text-5xl font-semibold text-white">_projects</h2>
+                <h2 className="text-3xl md:text-5xl font-semibold text-slate-900 dark:text-white">_projects</h2>
             </div>
 
             <div ref={trackRef} className="flex h-full w-full will-change-transform z-10">
@@ -113,8 +117,8 @@ export default function ProjectsSlider() {
                     type="button"
                     onClick={handlePrev}
                     aria-label="Previous project"
-                    className="h-12 w-12 rounded-full border border-slate-700 bg-slate-900/60
-                               flex items-center justify-center text-slate-300
+                    className="h-12 w-12 rounded-full border border-slate-300 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60
+                               flex items-center justify-center text-slate-600 dark:text-slate-300
                                hover:border-orange-400 hover:text-orange-400 transition-colors"
                 >
                     <ChevronLeft size={20} />
@@ -124,7 +128,7 @@ export default function ProjectsSlider() {
                     {projects.map((_, i) => (
                         <span
                             key={i}
-                            className={`h-1.5 rounded-full transition-all ${i === realIndex ? "w-6 bg-orange-400" : "w-1.5 bg-slate-700"
+                            className={`h-1.5 rounded-full transition-all ${i === realIndex ? "w-6 bg-orange-400" : "w-1.5 bg-slate-300 dark:bg-slate-700"
                                 }`}
                         />
                     ))}
@@ -134,8 +138,8 @@ export default function ProjectsSlider() {
                     type="button"
                     onClick={handleNext}
                     aria-label="Next project"
-                    className="h-12 w-12 rounded-full border border-slate-700 bg-slate-900/60
-                               flex items-center justify-center text-slate-300
+                    className="h-12 w-12 rounded-full border border-slate-300 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60
+                               flex items-center justify-center text-slate-600 dark:text-slate-300
                                hover:border-orange-400 hover:text-orange-400 transition-colors"
                 >
                     <ChevronRight size={20} />
@@ -154,16 +158,16 @@ function ProjectCard({ project }: { project: Project }) {
                         {project.tags.map((tag) => (
                             <span
                                 key={tag}
-                                className="text-xs px-2 py-1 rounded border border-slate-700 text-indigo-300"
+                                className="text-xs px-2 py-1 rounded border border-slate-300 dark:border-slate-700 text-indigo-600 dark:text-indigo-300"
                             >
                                 {tag}
                             </span>
                         ))}
                     </div>
-                    <h3 className="text-3xl md:text-4xl font-semibold text-white mb-4">
+                    <h3 className="text-3xl md:text-4xl font-semibold text-slate-900 dark:text-white mb-4">
                         {project.title}
                     </h3>
-                    <p className="text-slate-400 text-base mb-6 max-w-md">
+                    <p className="text-slate-600 dark:text-slate-400 text-base mb-6 max-w-md">
                         {project.description}
                     </p>
                     <div className="flex gap-5 text-sm">
@@ -172,7 +176,7 @@ function ProjectCard({ project }: { project: Project }) {
                                 href={project.link}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-orange-400 hover:text-orange-300"
+                                className="text-orange-600 dark:text-orange-400 hover:text-orange-500 dark:hover:text-orange-300"
                             >
                                 live →
                             </a>
@@ -182,7 +186,7 @@ function ProjectCard({ project }: { project: Project }) {
                                 href={project.github}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-slate-400 hover:text-slate-200"
+                                className="text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
                             >
                                 code →
                             </a>
@@ -190,7 +194,7 @@ function ProjectCard({ project }: { project: Project }) {
                     </div>
                 </div>
 
-                <div className="order-1 md:order-2 rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/40 aspect-video">
+                <div className="order-1 md:order-2 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900/40 aspect-video">
                     <img
                         src={project.image}
                         alt={project.title}
