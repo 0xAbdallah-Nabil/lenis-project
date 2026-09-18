@@ -3,6 +3,7 @@ import { TypeAnimation } from "react-type-animation";
 import { useSelector } from "react-redux";
 import ShapeGrid from "@/components/ShapeGrid";
 import photo1 from "@/assets/images/image2.jpeg";
+import photo2 from "@/assets/images/image1.jpeg";
 import type { RootState } from "@/store";
 
 export default function Hero() {
@@ -32,7 +33,7 @@ export default function Hero() {
                 <div className="order-1 md:order-2 flex justify-center md:justify-end">
                     <div className="w-36 h-36 sm:w-44 sm:h-44 md:w-95 md:h-95 rounded-full bg-slate-200 dark:bg-black overflow-hidden shadow-2xl shadow-slate-400/50 dark:shadow-black">
                         <img
-                            src={photo1}
+                            src={isDark? photo1 : photo2}
                             alt="Abdallah Nabil"
                             className="w-full h-full object-cover"
                         />
