@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useSelector } from "react-redux";
@@ -7,10 +7,8 @@ import { projects } from "@/data/projects";
 import type { Project } from "@/types/project";
 import type { RootState } from "@/store";
 import DotGrid from '@/components/DotGrid';
+
 // Clone the last item to the front and the first item to the back.
-// This lets us animate straight past the "real" edges and then
-// snap instantly (no animation) back into the matching real slide,
-// creating the illusion of an infinite loop.
 const slides: Project[] = [
     projects[ projects.length - 1 ],
     ...projects,
@@ -26,6 +24,9 @@ export default function ProjectsSlider() {
 
     // index into `slides`; starts at 1 = first real project
     const [ index, setIndex ] = useState(1);
+
+    // Ref to store touch start coordinates
+    const touchStartRef = useRef<{ x: number; y: number } | null>(null);
 
     const goTo = (nextIndex: number) => {
         if (isAnimatingRef.current) return;
@@ -43,7 +44,6 @@ export default function ProjectsSlider() {
             onComplete: () => {
                 isAnimatingRef.current = false;
 
-                // Landed on a clone — snap instantly to the matching real slide
                 if (nextIndex === slides.length - 1) {
                     setIndex(1);
                     gsap.set(track, { x: -1 * slideWidth });
@@ -76,6 +76,52 @@ export default function ProjectsSlider() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    // --- NEW: Touch Swipe Handlers ---
+    useEffect(() => {
+        const container = containerRef.current;
+        if (!container) return;
+
+        const handleTouchStart = (e: TouchEvent) => {
+            const touch = e.touches[ 0 ];
+            touchStartRef.current = { x: touch.clientX, y: touch.clientY };
+        };
+
+        const handleTouchEnd = (e: TouchEvent) => {
+            if (!touchStartRef.current) return;
+
+            const touch = e.changedTouches[ 0 ];
+            const deltaX = touch.clientX - touchStartRef.current.x;
+            const deltaY = touch.clientY - touchStartRef.current.y;
+
+            // Thresholds to prevent accidental swipes
+            const SWIPE_THRESHOLD = 50; // Minimum distance (px) for a swipe
+            const VERTICAL_TOLERANCE = 1.5; // Horizontal movement must be greater than vertical * this
+
+            // Check if horizontal swipe is significant and dominant over vertical
+            if (Math.abs(deltaX) > SWIPE_THRESHOLD && Math.abs(deltaX) > Math.abs(deltaY) * VERTICAL_TOLERANCE) {
+                if (deltaX < 0) {
+                    // Swiped left -> next slide
+                    handleNext();
+                } else {
+                    // Swiped right -> previous slide
+                    handlePrev();
+                }
+            }
+
+            // Reset touch start
+            touchStartRef.current = null;
+        };
+
+        container.addEventListener("touchstart", handleTouchStart, { passive: true });
+        container.addEventListener("touchend", handleTouchEnd, { passive: true });
+
+        return () => {
+            container.removeEventListener("touchstart", handleTouchStart);
+            container.removeEventListener("touchend", handleTouchEnd);
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [ index ]); // Re-bind when index changes so closures have the latest index
+
     // Real (non-clone) slide number for the dots/counter, 0-based
     const realIndex = (index - 1 + projects.length) % projects.length;
 
@@ -83,7 +129,7 @@ export default function ProjectsSlider() {
         <section
             id="projects"
             ref={containerRef}
-            className="relative w-screen h-screen overflow-hidden bg-[#eaddc0] dark:bg-[#0a1628] font-mono border-t border-slate-200 dark:border-slate-800 transition-colors"
+            className="relative w-screen h-screen overflow-hidden bg-[#eaddc0] dark:bg-[#0a1628] font-mono border-t border-slate-200 dark:border-slate-800 transition-colors touch-pan-y"
         >
             <div className="absolute inset-0 z-0 pointer-events-none">
                 <DotGrid
@@ -188,7 +234,7 @@ function ProjectCard({ project }: { project: Project }) {
                                 rel="noopener noreferrer"
                                 className="text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
                             >
-                                code →
+                                documentation →
                             </a>
                         )}
                     </div>
