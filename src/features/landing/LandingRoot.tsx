@@ -33,7 +33,7 @@ export default function Hero() {
                 <div className="order-1 md:order-2 flex justify-center md:justify-end">
                     <div className="w-36 h-36 sm:w-44 sm:h-44 md:w-95 md:h-95 rounded-full bg-slate-200 dark:bg-black overflow-hidden shadow-2xl shadow-slate-400/50 dark:shadow-black">
                         <img
-                            src={isDark? photo1 : photo2}
+                            src={isDark ? photo1 : photo2}
                             alt="Abdallah Nabil"
                             className="w-full h-full object-cover"
                         />
@@ -83,30 +83,39 @@ export default function Hero() {
                             experience.
                         </p>
 
-                        <p>
+                        <a href="https://www.linkedin.com/in/0xabdallah-nabil/" target="_blank" rel="noopener noreferrer" className="block">
                             <span className="text-indigo-500 dark:text-indigo-400">const</span>{" "}
                             <span className="text-emerald-600 dark:text-emerald-400">LinkedIn</span>{" "}
                             <span className="text-slate-500 dark:text-slate-300">=</span>{" "}
                             <span className="text-orange-600 dark:text-orange-300">
                                 "in/0xabdallah-nabil"
                             </span>
-                        </p>
-                        <p>
+                        </a>
+                        <a href="https://github.com/0xAbdallah-Nabil" target="_blank" rel="noopener noreferrer" className="block">
                             <span className="text-indigo-500 dark:text-indigo-400">const</span>{" "}
                             <span className="text-emerald-600 dark:text-emerald-400">GitHub</span>{" "}
                             <span className="text-slate-500 dark:text-slate-300">=</span>{" "}
                             <span className="text-orange-600 dark:text-orange-300">
                                 "0xabdallah-nabil"
                             </span>
-                        </p>
-                        <p>
+                        </a>
+                        <a href="https://www.facebook.com/abdallah.nabil.9421/" target="_blank" rel="noopener noreferrer" className="block">
                             <span className="text-indigo-500 dark:text-indigo-400">const</span>{" "}
                             <span className="text-emerald-600 dark:text-emerald-400">Facebook</span>{" "}
                             <span className="text-slate-500 dark:text-slate-300">=</span>{" "}
                             <span className="text-orange-600 dark:text-orange-300">
                                 "abdallah.nabil.9421"
                             </span>
-                        </p>
+                        </a>
+                        {/* Added WhatsApp link */}
+                        <a href="https://wa.me/201061441191" target="_blank" rel="noopener noreferrer" className="block">
+                            <span className="text-indigo-500 dark:text-indigo-400">const</span>{" "}
+                            <span className="text-emerald-600 dark:text-emerald-400">WhatsApp</span>{" "}
+                            <span className="text-slate-500 dark:text-slate-300">=</span>{" "}
+                            <span className="text-orange-600 dark:text-orange-300">
+                                "+20 1061441191"
+                            </span>
+                        </a>
                     </div>
                 </div>
             </div>

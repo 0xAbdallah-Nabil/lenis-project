@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { ChevronDown, ChevronRight, FileCode2 } from "lucide-react";
-import { FaGithub, FaLinkedin, FaFacebook } from "react-icons/fa";
-
+import { FaGithub, FaLinkedin, FaFacebook, FaWhatsappSquare } from "react-icons/fa";
 
 interface FileExplorerProps {
     onOpenFile: (id: string) => void;
@@ -104,6 +103,9 @@ export default function FileExplorer({ onOpenFile, activeFileId }: FileExplorerP
                     </a>
                     <a className="text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 hover:scale-120" href="https://www.facebook.com/abdallah.nabil.9421/" target="_blank" rel="noopener noreferrer">
                         <FaFacebook size={18} />
+                    </a>
+                    <a className="text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 hover:scale-120" href="https://wa.me/201061441191" target="_blank" rel="noopener noreferrer">
+                        <FaWhatsappSquare size={18} />
                     </a>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-import { FaGithub, FaLinkedin, FaFacebook } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaFacebook, FaWhatsappSquare  } from "react-icons/fa";
 
 const socialLinks = [
     {
@@ -16,6 +16,11 @@ const socialLinks = [
         href: "https://www.facebook.com/abdallah.nabil.9421/",
         icon: FaFacebook,
     },
+    {
+        label: "Whatsapp",
+        href: "https://wa.me/201061441191",
+        icon: FaWhatsappSquare ,
+    },
 ];
 
 export default function Footer() {
@@ -24,7 +29,7 @@ export default function Footer() {
 
 
     return (
-        <footer className="w-full bg-[#eaddc0] dark:bg-[#0a1628] border-t border-slate-200 dark:border-slate-800 font-mono text-sm transition-colors">
+        <footer className="w-full bg-[#fdfdfd] dark:bg-[#0a1628] border-t border-slate-200 dark:border-slate-800 font-mono text-sm transition-colors">
             <div className="max-w-7xl mx-auto px-6 py-10">
                 {/* socials, reused from FileExplorer */}
                 <div className="flex items-center gap-4 justify-between">
@@ -44,7 +49,7 @@ export default function Footer() {
                                 aria-label={label}
                                 className="text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 hover:scale-120 transition-transform"
                             >
-                                <Icon size={18} />
+                                <Icon className="h-4.5 w-4.5" />
                             </a>
                         ))}
                     </div>

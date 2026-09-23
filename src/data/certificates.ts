@@ -8,7 +8,7 @@ import F1Tenth_qualification from "@/assets/images/certificates/F1Tenth Qualific
 import Head_of_autonomous from "@/assets/images/certificates/Head of autonomous .jpg";
 import IEEE_most_active_volunteers from "@/assets/images/certificates/IEEE most active volunteers in frontend.jpg";
 import mahara_tech_javascript from "@/assets/images/certificates/mhara tech JavaScript course .png";
-import NTI_mean_stack from "@/assets/images/certificates/NTI summer trainning mean stack.jpg";
+import NTI_mean_stack from "@/assets/images/certificates/NTI summer trianning web Designer.png";
 import NTI_web_designer from "@/assets/images/certificates/NTI summer trianning web Designer.png";
 import sprints_microsoft_web_dev from "@/assets/images/certificates/sprints and microsoft web develpment.png";
 import starkLab_instructor from "@/assets/images/certificates/starkLab instructor.jpg";

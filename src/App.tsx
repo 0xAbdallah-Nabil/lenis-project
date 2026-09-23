@@ -7,7 +7,15 @@ import ContactForm from "@/features/contacts/ContactForm";
 import Footer from "@/components/footer/Footer";
 import { LenisInitializer } from "@/features/scroll/LenisInitializer";
 import { ThemeInitializer } from "@/features/theme/ThemeInitializer";
+// AOS does not ship TypeScript declarations.
+// @ts-expect-error: the package is JavaScript-only and has no available declaration file.
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { useEffect } from "react";
 function App() {
+  useEffect(() => {
+    AOS.init({ duration: 1000 });
+  }, []);
   return (
     <>
       <LenisInitializer />

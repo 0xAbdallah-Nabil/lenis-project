@@ -53,7 +53,7 @@ export default function CertificatesGallery() {
                     y: 0,
                     duration: 0.5,
                     ease: "power2.out",
-                    stagger: 0.04,
+                    stagger: 0.2,
                     scrollTrigger: {
                         trigger: section,
                         start: "top 75%",
@@ -222,7 +222,9 @@ export default function CertificatesGallery() {
                             )}
                         </div>
 
-                        <div className="p-5">
+                        <div className="p-5"
+                            data-aos="fade-up"
+                            data-aos-delay="100">
                             <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">
                                 {selected.date}
                             </p>
